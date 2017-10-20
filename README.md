@@ -1,5 +1,5 @@
 # Darts
-Keep track of who wins at darts in Raleigh. Ultimately hope to add the degree of victory
+Keep track of who wins at darts in Raleigh. I hope to add the degree of victory
 and ultimately an Elo ranking of the dart players in the Raleigh office.
 
 # The Actual Goal
