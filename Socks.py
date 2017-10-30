@@ -12,13 +12,7 @@ import matplotlib.pyplot as mp
 
 # Define prior distribution for all players
 def prior(lam):
-    a = np.random.poisson(lam)
-    b = np.random.poisson(lam)
-    c = np.random.poisson(lam)
-    d = np.random.poisson(lam)
-    e = np.random.poisson(lam)
-    
-    return [a, b, c, d, e]
+    return list(np.random.poisson(lam=lam, size=5))
 
 # Define a game function. Inputs the players and outputs who wins
 # Returns the position of each player in the order given
@@ -27,9 +21,7 @@ def game(p1, p2, p3, p1_lam, p2_lam, p3_lam):
     g = {p1: prior(p1_lam), p2: prior(p2_lam), p3: prior(p3_lam)}
     
     rank = sorted(g.keys(), key = lambda x: g[x])
-    outcome = {rank[0]: [1, g[rank[0]][5]],
-               rank[1]: [2, g[rank[1]][5]],
-               rank[2]: [3, g[rank[2]][5]]}
+    outcome = {rank[0]: 1, rank[1]: 2, rank[2]: 3}
 
     return outcome
         
@@ -51,15 +43,15 @@ for n in range(100000):
                         lams['dan'], lams['tom'], lams['ari']))
         
     # Record requirements
-    if (sorted([res[0]['dan'][0],
-                res[1]['dan'][0],
-                res[2]['dan'][0]]) == [1, 2, 2] and
-        sorted([res[0]['tom'][0],
-                res[1]['tom'][0],
-                res[2]['tom'][0]]) == [1, 3, 3] and
-        sorted([res[0]['ari'][0],
-                res[1]['ari'][0],
-                res[2]['ari'][0]]) == [1, 2, 3]):
+    if (sorted([res[0]['dan'],
+                res[1]['dan'],
+                res[2]['dan']]) == [1, 2, 2] and
+        sorted([res[0]['tom'],
+                res[1]['tom'],
+                res[2]['tom']]) == [1, 3, 3] and
+        sorted([res[0]['ari'],
+                res[1]['ari'],
+                res[2]['ari']]) == [1, 2, 3]):
            dan.append(lams['dan'])
            tom.append(lams['tom'])
            ari.append(lams['ari'])
