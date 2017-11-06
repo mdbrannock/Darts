@@ -8,7 +8,7 @@ Created on Sun Nov  5 12:17:31 2017
 # Second Attempt. Using density approximations to build iterative posterior
 # distributions.
 import numpy as np
-from sklearn.neighbors import KernelDensity
+from sklearn.neighbors.kde import KernelDensity
 from sklearn.grid_search import GridSearchCV
 
 # Define dictionary with starting prior distribution for every player.
@@ -21,6 +21,10 @@ from sklearn.grid_search import GridSearchCV
 # https://jakevdp.github.io/blog/2013/12/01/kernel-density-estimation/
 # Well, nevermind, that's deprecated. New version:
 # http://scikit-learn.org/stable/modules/cross_validation.html
+
+# Use CV to get best bandwidth. Use kde.score() as the evualation metric.
+X = np.array(np.random.normal(15, 3, 100))[:, np.newaxis]
+kde = KernelDensity(bandwidth=0.2).fit(X)
 
 
 
