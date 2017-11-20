@@ -69,7 +69,7 @@ def game(*ps):
 
             # Simulate a true AVERAGE of turns for each person from their prior 
             # distribution.
-            lambs[p] = players[p].sample(1)
+            lambs[p] = abs(players[p].sample(1))
             
             # From this average generate how many turns it would take them to
             # finish a game from a Poisson distribution. Generating multiple
@@ -116,6 +116,7 @@ game('daniel', 'tom', 'aric')
 game('tom', 'daniel', 'aric')
 game('daniel', 'tom', 'aric')
 game('daniel', 'tom', 'keith')
+game('tom', 'daniel', 'jenn', 'keith')
 
 # Plot each player's histogram
 for p in players.keys():
