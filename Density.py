@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import pickle as pickle
 
 # Path base
-path_base = 'Documents/Projects/Darts'
+path_base = 'Documents/Projects/Darts/'
 
 # Define dictionary with starting prior distribution for every player.
 # The original prior will just be a normal distribution [u, s]. However, to
@@ -138,4 +138,4 @@ for p in players.keys():
 plt.legend()
 
 # Save the final dictionary object with all the players' densities
-pickle.dump(players, open('data/players.obj', 'wb'))
+pickle.dump(players, open(path_base+'data/players.obj', 'wb'))
