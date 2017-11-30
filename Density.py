@@ -11,6 +11,10 @@ import numpy as np
 from sklearn.neighbors.kde import KernelDensity
 from sklearn.model_selection import cross_val_score
 import matplotlib.pyplot as plt
+import pickle as pickle
+
+# Path base
+path_base = 'Documents/Projects/Darts'
 
 # Define dictionary with starting prior distribution for every player.
 # The original prior will just be a normal distribution [u, s]. However, to
@@ -117,13 +121,21 @@ game('tom', 'daniel', 'aric')
 game('daniel', 'tom', 'aric')
 game('daniel', 'tom', 'keith')
 game('tom', 'daniel', 'jenn', 'keith')
+game('daniel', 'aric', 'keith')
+game('daniel', 'keith')
+game('tom', 'daniel')
+
 
 # Plot each player's histogram
 for p in players.keys():
     print(p)
     dist = players[p].sample(5000).reshape(1, -1)[0]
     print(dist.mean())
-    n, bins, patches = plt.hist(dist, 30, normed=1, alpha = 0.7)
+    n, bins, patches = plt.hist(dist, 30, normed=1, alpha = 0.7, label = p)
     l = plt.plot(bins)
     plt.axis([3, 30, 0, 0.3])
+    
+plt.legend()
 
+# Save the final dictionary object with all the players' densities
+pickle.dump(players, open('data/players.obj', 'wb'))
