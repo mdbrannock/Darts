@@ -10,11 +10,6 @@ Created on Sun Nov  5 12:17:31 2017
 import numpy as np
 from sklearn.neighbors.kde import KernelDensity
 from sklearn.model_selection import cross_val_score
-import matplotlib.pyplot as plt
-import pickle as pickle
-
-# Path base
-path_base = 'Documents/Projects/Darts/'
 
 # Define dictionary with starting prior distribution for every player.
 # The original prior will just be a normal distribution [u, s]. However, to
@@ -40,27 +35,20 @@ for bw in rng:
 fbw = max(bws.keys(), key = lambda x: bws[x])
 kde = KernelDensity(bandwidth = fbw).fit(X)
 
-# Define players' prior distributions
-players = {'aric':   kde,
-           'daniel': kde,
-           'jenn':   kde,
-           'keith':  kde,
-           'tom':    kde}
-
-# Plot initial distributions (same for every player)
-dist = kde.sample(5000).reshape(1, -1)[0]
-n, bins, patches = plt.hist(dist, 30, normed=1)
-l = plt.plot(bins)
-plt.axis([min(dist), max(dist), 0, 0.15])
+# Define empty players dictionary
+players = {}
 
 # Define game function. Give it the players in the order they finished the game
-def game(*ps):
+def game(players, *ps):
     ranks = {}
     
     for p in ps:
         # Record what place they got (0 is first place bc python is stupid)
         r = [x for x in range(len(ps)) if ps[x] == p]
         ranks[p] = r[0]
+        if p not in players:
+            print('Add "' + p + '" to players object with add_player()')
+            return
     
     # Simulate n games
     games = []
@@ -109,33 +97,9 @@ def game(*ps):
             
         fbw = max(bws.keys(), key = lambda x: bws[x])
         players[p] = KernelDensity(bandwidth = fbw).fit(md)
-        
-# Key in our games!
-game('tom', 'daniel', 'aric')
-game('aric', 'daniel', 'tom')
-game('daniel', 'aric', 'tom')
-game('daniel', 'tom')
-game('daniel', 'tom', 'keith', 'aric', 'jenn')
-game('daniel', 'tom', 'aric')
-game('tom', 'daniel', 'aric')
-game('daniel', 'tom', 'aric')
-game('daniel', 'tom', 'keith')
-game('tom', 'daniel', 'jenn', 'keith')
-game('daniel', 'aric', 'keith')
-game('daniel', 'keith')
-game('tom', 'daniel')
-
-
-# Plot each player's histogram
-for p in players.keys():
-    print(p)
-    dist = players[p].sample(5000).reshape(1, -1)[0]
-    print(dist.mean())
-    n, bins, patches = plt.hist(dist, 30, normed=1, alpha = 0.7, label = p)
-    l = plt.plot(bins)
-    plt.axis([3, 30, 0, 0.3])
     
-plt.legend()
-
-# Save the final dictionary object with all the players' densities
-pickle.dump(players, open(path_base+'data/players.obj', 'wb'))
+    return players
+        
+# Define function that adds a new player
+def add_player(players, p):
+    players[p] = kde
