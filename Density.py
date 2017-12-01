@@ -77,6 +77,7 @@ def game(players, *ps):
         
     # Pull out the lambdas that match the games that occured
     matching_results = [x[1] for x in games if x[0] == ranks]
+    print(len(matching_results))
     
     # Build new density approximation for each player
     for p in ps:
