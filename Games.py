@@ -44,6 +44,7 @@ players = pickle.load(open('data/players.obj', 'rb'))
 #players = ds.game(players, 'tom', 'daniel')
 #players = ds.game(players, 'daniel', 'keith', 'tom', 'aric', 'jenn')
 #players = ds.game(players, 'tom', 'keith')
+#players = ds.game(players, 'daniel', 'tom', 'aric', 'keith')
 
 # Plot current state of player distributions
 for p in players.keys():
