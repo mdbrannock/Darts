@@ -19,11 +19,11 @@ import Density as ds
 players = {}
 
 # Initialize all the players
-ds.add_player(players, 'aric')
-ds.add_player(players, 'daniel')
-ds.add_player(players, 'jenn')
-ds.add_player(players, 'keith')
-ds.add_player(players, 'tom')
+#ds.add_player(players, 'aric')
+#ds.add_player(players, 'daniel')
+#ds.add_player(players, 'jenn')
+#ds.add_player(players, 'keith')
+#ds.add_player(players, 'tom')
 
 # Import players
 players = pickle.load(open('data/players.obj', 'rb'))
@@ -45,6 +45,7 @@ players = pickle.load(open('data/players.obj', 'rb'))
 #players = ds.game(players, 'daniel', 'keith', 'tom', 'aric', 'jenn')
 #players = ds.game(players, 'tom', 'keith')
 #players = ds.game(players, 'daniel', 'tom', 'aric', 'keith')
+#players = ds.game(players, 'daniel', 'tom', 'keith', 'jenn')
 
 # Plot current state of player distributions
 for p in players.keys():
