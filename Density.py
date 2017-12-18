@@ -39,7 +39,7 @@ kde = KernelDensity(bandwidth = fbw).fit(X)
 players = {}
 
 # Define game function. Give it the players in the order they finished the game
-def game(players, *ps):
+def game(players, n=10000, *ps):
     ranks = {}
     
     for p in ps:
@@ -52,7 +52,7 @@ def game(players, *ps):
     
     # Simulate n games
     games = []
-    for n in range(10000):
+    for n in range(n):
         lambs = {}
         turns = {}
         
@@ -61,7 +61,7 @@ def game(players, *ps):
 
             # Simulate a true AVERAGE of turns for each person from their prior 
             # distribution.
-            lambs[p] = abs(players[p].sample(1))
+            lambs[p] = abs(players[p][-1].sample(1))
             
             # From this average generate how many turns it would take them to
             # finish a game from a Poisson distribution. Generating multiple
@@ -88,7 +88,7 @@ def game(players, *ps):
         # beginning of the script.
         upper = 1.06*md.std()
         lower = 1.06*md.std()/20
-        rng = np.arange(lower, upper, (upper-lower)/20)
+        rng = np.arange(lower, upper, (upper-lower)/10)
         bws = {}
         
         for bw in rng:
@@ -97,10 +97,8 @@ def game(players, *ps):
             bws[bw] = s
             
         fbw = max(bws.keys(), key = lambda x: bws[x])
-        players[p] = KernelDensity(bandwidth = fbw).fit(md)
-    
-    return players
+        players[p].append(KernelDensity(bandwidth = fbw).fit(md))
         
 # Define function that adds a new player
 def add_player(players, p):
-    players[p] = kde
+    players[p] = [kde]
