@@ -39,7 +39,7 @@ kde = KernelDensity(bandwidth = fbw).fit(X)
 players = {}
 
 # Define game function. Give it the players in the order they finished the game
-def game(players, n=10000, *ps):
+def game(players, *ps, **kwargs):
     ranks = {}
     
     for p in ps:
@@ -51,8 +51,12 @@ def game(players, n=10000, *ps):
             return
     
     # Simulate n games
+    n = 10000
+    if 'n' in kwargs:
+        n = int(kwargs['n'])
+        
     games = []
-    for n in range(n):
+    for n in range(int(n)):
         lambs = {}
         turns = {}
         
@@ -77,7 +81,7 @@ def game(players, n=10000, *ps):
         
     # Pull out the lambdas that match the games that occured
     matching_results = [x[1] for x in games if x[0] == ranks]
-    print(len(matching_results))
+    print(len(matching_results)/n)
     
     # Build new density approximation for each player
     for p in ps:
