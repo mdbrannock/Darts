@@ -65,12 +65,15 @@ players = pickle.load(open('data/players.obj', 'rb'))
 #ds.game(players, 'daniel', 'tom', 'jenn', 'keith')
 #ds.game(players, 'daniel', 'aric', 'tom', 'jenn', 'keith', n=50000)
 #ds.game(players, 'daniel', 'tom', 'aric', 'keith', 'jenn', 'alex', n=100000)
+#ds.game(players, 'tom', 'daniel', 'aric', 'keith')
+#ds.game(players, 'daniel', 'tom')
+#ds.game(players, 'daniel', 'tom', 'keith', 'jenn')
 
 # Plot current state of player distributions
 myplt.current_status(players)
 
 # Plot an individual's progress over time
-myplt.history(players, 'alex')
+myplt.history(players, 'keith')
 
 # Save the final dictionary object with all the players' densities
 pickle.dump(players, open('data/players.obj', 'wb'))
