@@ -106,3 +106,28 @@ def game(players, *ps, **kwargs):
 # Define function that adds a new player
 def add_player(players, p):
     players[p] = [kde]
+
+# Define function that chooses 6 random darts numbers (no neighbors)
+def choosedarts():
+    
+    # One copy stays untouched, one has numbers removed
+    n_order = [20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5]
+    n_order2 = n_order
+    
+    # Loop that chooses 6 numbers
+    chosen = []
+    for i in range(5):
+        
+        # Choose one number and add it to chosen
+        x = random.sample(n_order2, 1)[0]
+        chosen.append(x)
+        
+        # Find the neighbors that need to be deleted
+        x_index = n_order.index(x)
+        del_index = [x_index - 1, x_index, (x_index + 1) % 20]
+        del_nums = [n_order[j] for j in del_index]
+        
+        # Remove those numbers for copy of n_order that can be sampled from next
+        n_order2 = [j for j in n_order2 if j not in del_nums]
+        
+    return(chosen)
