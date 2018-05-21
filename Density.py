@@ -106,3 +106,19 @@ def game(players, *ps, **kwargs):
 # Define function that adds a new player
 def add_player(players, p):
     players[p] = [kde]
+    
+# Define function that prints the handicap for each player
+def handicaps(players, *ps):
+    means = {}
+    
+    # Pull out expected number of turns for each player
+    for p in ps:
+        means[p] = players[p][-1].sample(5000).mean()
+    
+    # What's the minimum of these averages?
+    min_turns = min(means.values())
+    
+    # Expected total number of marks for each player in that number of turns
+    total_marks = {k: 18 - (18 * min_turns / v) for k, v in means.items()}
+    total_marks = {k: round(v, 1) for k, v in total_marks.items()}
+    return(total_marks)
