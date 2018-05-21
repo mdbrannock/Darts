@@ -10,6 +10,7 @@ Created on Sun Nov  5 12:17:31 2017
 import numpy as np
 from sklearn.neighbors.kde import KernelDensity
 from sklearn.model_selection import cross_val_score
+import random
 
 # Define dictionary with starting prior distribution for every player.
 # The original prior will just be a normal distribution [u, s]. However, to
@@ -144,7 +145,9 @@ def choosedarts():
         del_index = [x_index - 1, x_index, (x_index + 1) % 20]
         del_nums = [n_order[j] for j in del_index]
 
-        # Remove those numbers for copy of n_order that can be sampled from next
+        # Delete neighbors so they won't be sampled next
         n_order2 = [j for j in n_order2 if j not in del_nums]
+        
+    chosen.sort(reverse = True)
 
     return(chosen)
