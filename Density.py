@@ -52,12 +52,12 @@ def game(players, *ps, **kwargs):
             return
 
     # Simulate n games
-    n = 10000
+    n = 100000
     if 'n' in kwargs:
         n = int(kwargs['n'])
 
     games = []
-    for n in range(int(n)):
+    for m in range(int(n)):
         lambs = {}
         turns = {}
 
@@ -79,10 +79,47 @@ def game(players, *ps, **kwargs):
         for i in range(len(result)):
             s_rank[result[i]] = i
         games.append([s_rank, lambs])
+        
+        # print that it's working
+        if m == n/2:
+            print('Halfway there!')
 
     # Pull out the lambdas that match the games that occured
     matching_results = [x[1] for x in games if x[0] == ranks]
-    print(len(matching_results)/n)
+    matching_n = len(matching_results)
+    print(matching_n, 'matching games, or', 
+          round(matching_n/m, 3)*100, 'percent')
+    
+    # if matching_results is less than 1000, then run the expected number of
+    # iterations to get up to 1500 matching game results.
+    if matching_n < 1000:
+        addl_games = round(((n/matching_n) * (1500 - matching_n)))
+        
+        print('Too few matching results, running', addl_games, 
+              'more simulations')
+        
+        # Repeat above block to run more games (I know this could be better)
+        for m in range(int(addl_games)):
+            lambs = {}
+            turns = {}
+            
+            for p in ps:
+                lambs[p] = abs(players[p][-1].sample(1))
+                turns[p] = list(np.random.poisson(lambs[p], 10))
+                
+            result = sorted(turns.keys(), key = lambda x: turns[x])
+            s_rank = {}
+            
+            for i in range(len(result)):
+                s_rank[result[i]] = i
+                
+            games.append([s_rank, lambs])
+            
+            if m % 5000 == 0:
+                print(round(100*m/addl_games), 'percent')
+            
+        matching_results = [x[1] for x in games if x[0] == ranks]
+        print('Now', len(matching_results), 'matching games')
 
     # Build new density approximation for each player
     for p in ps:
