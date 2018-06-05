@@ -34,7 +34,10 @@ import MyPlots as myplt
 players = pickle.load(open('data/players.obj', 'rb'))
 
 # Get handicaps for next game
-ds.handicaps(players, 'daniel', 'keith', 'tom', 'kim', 'jenn', 'aric')
+ds.handicaps(players, 'daniel', 'kim', 'jenn', 'aric', 'keith', 'tom')
+
+# Choose numbers
+ut.choosedarts()
 
 # Record of games that have passed and already been included in players.obj
 #ds.game(players, 'tom', 'daniel', 'aric')
@@ -79,13 +82,15 @@ ds.handicaps(players, 'daniel', 'keith', 'tom', 'kim', 'jenn', 'aric')
 #ds.game(players, 'daniel', 'tom', 'keith', 'jenn', 'kim', n=50000)
 #ds.game(players, 'tom', 'daniel', 'aric', 'keith', 'jenn', 'kim', n=100000)
 #ut.game(players, 'tom', 'daniel', 'aric', 'kim', 'keith', 'jenn')
+#ut.game(players, 'aric', 'daniel', 'kim', 'jenn')
+#ut.game(players, 'daniel', 'keith')
+#ut.game(players, 'aric', 'daniel', 'tom')
 
 # Plot current state of player distributions
 myplt.current_status(players)
 
 # Plot an individual's progress over time
-myplt.history(players, 'keith')
+myplt.history(players, 'tom')
 
 # Save the final dictionary object with all the players' densities
 pickle.dump(players, open('data/players.obj', 'wb'))
-

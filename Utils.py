@@ -11,7 +11,6 @@ import numpy as np
 from sklearn.neighbors.kde import KernelDensity
 from sklearn.model_selection import cross_val_score
 import random
-import concurrent.futures as futures
 import itertools
 
 # Define dictionary with starting prior distribution for every player.
@@ -66,26 +65,6 @@ def single_simulation(ps):
     
     return([s_rank, lambs])
     
-# Build new density approximation for each player
-def dens_approx(p):
-    # Pull out their matching turns to build matching distribution
-    md = np.array([x[p][0][0] for x in matching_results]).reshape(-1, 1)
-
-    # Determine the best bandwidth using the same method as in the
-    # beginning of the script.
-    upper = 1.06*md.std()
-    lower = 1.06*md.std()/20
-    rng = np.arange(lower, upper, (upper-lower)/10)
-    bws = {}
-
-    for bw in rng:
-        kde = KernelDensity(bandwidth=bw)
-        s = cross_val_score(kde, md, cv=5).mean()
-        bws[bw] = s
-
-    fbw = max(bws.keys(), key = lambda x: bws[x])
-    return({p: KernelDensity(bandwidth = fbw).fit(md)})
-
 # Define game function. Give it the players in the order they finished the game
 def game(players, *ps, **kwargs):
     ranks = {}
@@ -198,7 +177,7 @@ def handicaps(players, *ps):
 
     # Expected total number of marks for each player in that number of turns
     total_marks = {k: 18 - (18 * min_turns / v) for k, v in means.items()}
-    total_marks = {k: round(v, 1) for k, v in total_marks.items()}
+    total_marks = {k: round(v, 2) for k, v in total_marks.items()}
     return(total_marks)
 
 # Define function that chooses 6 random darts numbers (no neighbors)

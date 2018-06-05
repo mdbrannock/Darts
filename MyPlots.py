@@ -21,17 +21,33 @@ def current_status(players):
     plt.legend()
 
 # Plot individual player's progress over time
-def history(players, player):
-    p = players[player]
-    u = [np.mean(p[g].sample(1000).reshape(1,-1)[0]) for g in range(len(p))]
-    l = [np.percentile(p[g].sample(1000).reshape(1,-1)[0], 25) for g in range(len(p))]
-    h = [np.percentile(p[g].sample(1000).reshape(1,-1)[0], 75) for g in range(len(p))]
-    t = list(range(1, len(p)+1))
+def history(players, *ps):
+    if ps == ():
+        ps = tuple(players.keys())
     
-    plt.plot(t, u, label = 'Mean')
-    plt.plot(t, l, label = 'Low', ls = 'dashed', c = '#1F77B4')
-    plt.plot(t, h, label = 'High', ls = 'dashed', c = '#1F77B4')
-    plt.ylabel('Average Turns')
-    plt.xlabel('# of Games')
+    if len(ps) == 1:
+        print(ps)
+        p = players[ps[0]]
+        u = [np.mean(p[g].sample(1000).reshape(1,-1)[0]) for g in range(len(p))]
+        l = [np.percentile(p[g].sample(1000).reshape(1,-1)[0], 25) for g in range(len(p))]
+        h = [np.percentile(p[g].sample(1000).reshape(1,-1)[0], 75) for g in range(len(p))]
+        t = list(range(1, len(p)+1))
+        
+        plt.plot(t, u, label = 'Mean')
+        plt.plot(t, l, label = 'Low', ls = 'dashed', c = '#1F77B4')
+        plt.plot(t, h, label = 'High', ls = 'dashed', c = '#1F77B4')
+        plt.ylabel('Average Turns')
+        plt.xlabel('# of Games')        
+                   
+    else:
+        for p in ps:
+            q = players[p]
+            u = [np.mean(q[g].sample(1000).reshape(1,-1)[0]) for g in range(len(q))]
+            t = list(range(1, len(q)+1))
+            
+            plt.plot(t, u, label = p)
+            plt.ylabel('Average Turns')
+            plt.xlabel('# of Games')
+            plt.legend()
         
     plt.show()
