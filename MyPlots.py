@@ -26,7 +26,6 @@ def history(players, *ps):
         ps = tuple(players.keys())
     
     if len(ps) == 1:
-        print(ps)
         p = players[ps[0]]
         u = [np.mean(p[g].sample(1000).reshape(1,-1)[0]) for g in range(len(p))]
         l = [np.percentile(p[g].sample(1000).reshape(1,-1)[0], 25) for g in range(len(p))]

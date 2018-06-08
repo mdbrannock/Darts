@@ -85,12 +85,17 @@ ut.choosedarts()
 #ut.game(players, 'aric', 'daniel', 'kim', 'jenn')
 #ut.game(players, 'daniel', 'keith')
 #ut.game(players, 'aric', 'daniel', 'tom')
+#ut.game(players, 'daniel', 'tom', 'keith', 'aric')
+#ut.game(players, 'daniel', 'tom', 'aric', 'keith')
+#ut.game(players, 'aric', 'tom', 'daniel', 'keith', 'kim')
+#ut.game(players, 'daniel', 'keith', 'aric', 'tom', 'jenn')
 
 # Plot current state of player distributions
 myplt.current_status(players)
 
 # Plot an individual's progress over time
-myplt.history(players, 'tom')
+myplt.history(players)
+myplt.history(players, 'daniel')
 
 # Save the final dictionary object with all the players' densities
 pickle.dump(players, open('data/players.obj', 'wb'))
