@@ -35,7 +35,7 @@ import MyPlots as myplt
 players = pickle.load(open('data/players.obj', 'rb'))
 
 # Get handicaps for next game
-print(ut.handicaps(players, 'kim', 'jenn', 'keith', 'aric', 'daniel', 'tom'))
+print(ut.handicaps(players, 'kim', 'jenn', 'keith', 'tom', 'daniel', 'aric'))
 
 # Choose numbers
 print(ut.choosedarts())
@@ -104,13 +104,33 @@ print(ut.choosedarts())
 #ut.game(players, 'daniel', 'keith', 'kim', 'jenn', 'tom', 'john')
 ## Brandon/Alex removed from following game; too many players. Alex, Jenn, Brandon.
 #ut.game(players, 'daniel', 'keith', 'aric', 'kim', 'tom', 'jenn')
+#ut.game(players, 'daniel', 'tom', 'jenn', 'keith')
+#ut.game(players, 'tom', 'daniel', 'aric', 'jenn', 'keith')
+#ut.game(players, 'aric', 'tom', 'keith', 'kim', 'daniel', 'jenn')
+#ut.game(players, 'daniel', 'tom', 'kim', 'jenn')
+#ut.game(players, 'tom', 'daniel', 'aric', 'kim', 'keith', 'jenn')
+#ut.game(players, 'jenn', 'daniel', 'tom', 'aric', 'keith')
+#ut.game(players, 'daniel', 'kim', 'tom', 'aric', 'jenn')
+#ut.game(players, 'aric', 'daniel', 'tom', 'jenn', 'keith', 'kim')
+#ut.game(players, 'aric', 'tom', 'kim')
+#ut.game(players, 'daniel', 'keith', 'tom', 'kim')
+#ut.game(players, 'kim', 'tom', 'aric', 'daniel', 'jenn')
+#ut.game(players, 'aric', 'daniel', 'tom', 'keith', 'kim', 'jenn')
+#ut.game(players, 'tom', 'daniel', 'keith')
+#ut.game(players, 'daniel', 'tom', 'jenn', 'keith', 'kim')
+#ut.game(players, 'daniel', 'keith', 'tom', 'kim', 'jenn')
+#ut.game(players, 'kim', 'keith', 'tom', 'jenn', 'daniel')
+#ut.game(players, 'daniel', 'kim', 'keith')
+#ut.game(players, 'tom', 'daniel', 'kim', 'aric', 'keith')
+#ut.game(players, 'daniel', 'tom', 'kim')
 
 # Plot current state of player distributions
-myplt.current_status(players)
+myplt.current_status(players, min_games = 5)
 
 # Plot an individual's progress over time
 myplt.history(players)
-myplt.history(players, 'daniel')
+myplt.history(players, 'tom', 'daniel', 'aric')
+myplt.history(players, 'kim', 'keith')
 
 # Save the final dictionary object with all the players' densities
 pickle.dump(players, open('data/players.obj', 'wb'))

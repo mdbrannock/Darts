@@ -181,7 +181,7 @@ def handicaps(players, *ps):
     return(total_marks)
 
 # Define function that chooses 6 random darts numbers (no neighbors)
-def choosedarts():
+def choosedarts(n = 6):
 
     # One copy stays untouched, one has numbers removed
     n_order = [20, 1, 18, 4, 13, 6, 10, 15, 2, 17,
@@ -190,7 +190,7 @@ def choosedarts():
 
     # Loop that chooses 6 numbers
     chosen = []
-    for i in range(6):
+    for i in range(n):
 
         # Choose one number and add it to chosen
         x = random.sample(n_order2, 1)[0]

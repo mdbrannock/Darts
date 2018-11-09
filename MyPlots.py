@@ -11,8 +11,10 @@ import numpy as np
 # Define a bunch of plots I might want!
 
 # First the histogram of everyone's current distribution
-def current_status(players):
+def current_status(players, min_games = 4):
     for p in players.keys():
+        if len(players[p]) < min_games:
+            continue
         print(p)
         dist = players[p][-1].sample(5000).reshape(1, -1)[0]
         print(dist.mean())
@@ -21,7 +23,7 @@ def current_status(players):
     plt.legend()
 
 # Plot individual player's progress over time
-def history(players, *ps):
+def history(players, *ps, min_games = 4):
     if ps == ():
         ps = tuple(players.keys())
     
@@ -40,6 +42,9 @@ def history(players, *ps):
                    
     else:
         for p in ps:
+            if len(players[p]) < min_games:
+                continue
+            
             q = players[p]
             u = [np.mean(q[g].sample(1000).reshape(1,-1)[0]) for g in range(len(q))]
             t = list(range(1, len(q)+1))
