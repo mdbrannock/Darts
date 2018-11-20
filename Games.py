@@ -102,7 +102,7 @@ print(ut.choosedarts())
 #ut.game(players, 'daniel', 'tom', 'kim', 'keith', 'aric')
 #ut.game(players, 'aric', 'tom', 'daniel')
 #ut.game(players, 'daniel', 'keith', 'kim', 'jenn', 'tom', 'john')
-## Brandon/Alex removed from following game; too many players. Alex, Jenn, Brandon.
+## Brandon/Alex removed from next game; too many players. Alex, Jenn, Brandon.
 #ut.game(players, 'daniel', 'keith', 'aric', 'kim', 'tom', 'jenn')
 #ut.game(players, 'daniel', 'tom', 'jenn', 'keith')
 #ut.game(players, 'tom', 'daniel', 'aric', 'jenn', 'keith')
